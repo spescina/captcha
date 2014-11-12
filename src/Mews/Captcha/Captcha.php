@@ -63,7 +63,7 @@ class Captcha {
     public static function create($id = null)
     {
 
-        static::$char = Str::random(static::$config['length']);
+        static::$char = $this->generateString();
 
         Session::put('captchaHash', Hash::make(static::$config['sensitive'] === true ? static::$char : Str::lower(static::$char)));
 
@@ -202,5 +202,21 @@ class Captcha {
 		return URL::to('captcha?' . mt_rand(100000, 999999));
 
     }
+    
+    private function generateString() {
+        
+        switch (static::$config['type']) {        	
+        	case 'num':
+        		$str = str_pad(rand(0), static::$config['length'], "0", STR_PAD_LEFT);
+        		break;
+        		
+        	default:
+        		$str = Str::random(static::$config['length']);
+        		break;
+        		
+        }
+        
+        return $str;        
+    }    
 
 }
