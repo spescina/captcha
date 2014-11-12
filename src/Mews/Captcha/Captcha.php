@@ -63,7 +63,7 @@ class Captcha {
     public static function create($id = null)
     {
 
-        static::$char = $this->generateString();
+        static::$char = static::generateString();
 
         Session::put('captchaHash', Hash::make(static::$config['sensitive'] === true ? static::$char : Str::lower(static::$char)));
 
@@ -203,7 +203,7 @@ class Captcha {
 
     }
     
-    private function generateString() {
+    private static function generateString() {
         
         switch (static::$config['type']) {        	
         	case 'num':
