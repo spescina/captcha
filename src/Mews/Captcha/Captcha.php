@@ -207,7 +207,7 @@ class Captcha {
         
         switch (static::$config['type']) {        	
         	case 'num':
-        		$str = str_pad(rand(0), static::$config['length'], "0", STR_PAD_LEFT);
+        		$str = str_pad(rand(0, 99999), static::$config['length'] >= 5 ? 5 : static::$config['length'], "0", STR_PAD_LEFT);
         		break;
         		
         	default:
